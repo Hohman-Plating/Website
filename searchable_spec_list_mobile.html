@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Searchable Aerospace Specification List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #004080;
+      font-size: 1.5em;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 12px 20px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      text-align: right;
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 5px;
+      display: none;
+    }
+
+    .table-container {
+      max-height: 500px;
+      overflow-y: auto;
+      overflow-x: auto;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px; /* Prevent squishing */
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      font-size: 14px;
+      white-space: nowrap; /* Keep text in one line */
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background-color: #004080;
+      color: white;
+      z-index: 2;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f6fc;
+    }
+
+    tr:hover {
+      background-color: #e2ecf9;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      #searchInput {
+        font-size: 14px;
+        padding: 10px 15px;
+      }
+
+      th, td {
+        padding: 10px;
+        font-size: 12px;
+      }
+
+      .table-container {
+        max-height: 400px;
+      }
+
+      /* Show scroll hint only on mobile */
+      .scroll-hint {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h2>Aerospace Specification List</h2>
+<input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for specifications...">
+
+<p class="scroll-hint">⇆ Scroll to view more columns</p>
+
+<div class="table-container">
+<table id="specTable">
+  <!-- Insert your table rows here -->
+</table>
+</div>
+
+<script>
+function searchTable() {
+  var input = document.getElementById("searchInput");
+  var filter = input.value.toUpperCase();
+  var table = document.getElementById("specTable");
+  var tr = table.getElementsByTagName("tr");
+
+  for (var i = 1; i < tr.length; i++) {
+    tr[i].style.display = "none";
+    var td = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < td.length; j++) {
+      if (td[j] && td[j].innerText.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        break;
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
